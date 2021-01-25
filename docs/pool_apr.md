@@ -1,5 +1,7 @@
 ## PoolAPRSkill
 
+(WIP)
+
 The role of the skill is to continuously monitor a set of pools for their APR.
 
 <div class="mermaid" id="apr">
