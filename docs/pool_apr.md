@@ -39,3 +39,5 @@ The `act` implementation can be along the lines of the following (pseudo-)code:
 pools = strategy.get_pools_to_monitor()
 self.request_latest_APR_forcecast(pools)
 ```
+
+....TBC

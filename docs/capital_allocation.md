@@ -15,7 +15,10 @@ The role of this skill is to continuously allocate capital to the most profitabl
         Tokens : whitlisted_tokens()
         Tokens : List[Token]
         Strategy : List~Token~ _tokens
-        Strategy : +get_pool_with_highest_apr_forecast()
+        Strategy : +bool is_active
+        Strategy : +Pool active_pool
+        Strategy : +Pool next_active_pool
+        Strategy : +get_pool_with_highest_apr_forecast() : Pool
         Strategy : +is_rebalancing_profitable(Pool, Pool)
         Tokens .. Token
         Strategy .. Tokens
@@ -26,7 +29,13 @@ The role of this skill is to continuously allocate capital to the most profitabl
         Pools .. Pool
         Pool : +String address
         Pool : +Tuple[Token, Token] pair
+        Pool : +PoolStatus status
         Pool .. Token
+        Pool .. PoolStatus
+        PoolStatus : NO_PROVISION
+        PoolStatus : PROVISION_PENDING
+        PoolStatus : PROVISION_ACTIVE
+        PoolStatus : WITHDRAWAL_PENDING
         Behaviour <|-- CapitalAllocationBehaviour
         Handler <|-- LedgerApiHandler
         Handler <|-- ContractApiHandler
@@ -42,7 +51,6 @@ if not strategy.is_active:
     # nothing to do
     return
 
-if strategy.is_
 new_pool = strategy.get_pool_with_highest_apr_forecast()
 # we assume sync retrieval here as APR for all pools is
 # locally stored and updated continuously
@@ -51,13 +59,16 @@ if new_pool == strategy.active_pool:
     # already in best pool
     return
 
-if not strategy.is_rebalancing_profitable(active_pool, new_pool):
-    # we assume sync retrieval as gas costs for rebalancing must
-    # be continuously monitored and locally stored
+if new_pool is not None and not strategy.is_rebalancing_profitable(active_pool, new_pool):
+    # here we assume sync retrieval as gas costs for rebalancing must
+    # be continuously monitored and locally stored, although we
+    # need to ensure this estimate is recent enough
     return
 
 active_pool = strategy.active_pool
-strategy.next_active_pool = active_pool
-active_pool.initiate_withdrawal()
-# this will request withdrawal transaction
+strategy.next_active_pool = new_pool
+self.initiate_withdrawal(active_pool)
+# this will request withdrawal transaction flow
 ```
+
+....TBC

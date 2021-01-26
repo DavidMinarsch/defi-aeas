@@ -7,7 +7,7 @@ The first AEA integrates with [Uniswap](https://uniswap.org/), that is we focus 
 
 ## Rough flow:
 
-1. user funds AEA with ETH and list of whitelisted tokens with an existing uniswap trading pair
+1. user funds AEA with ETH and list of whitelisted tokens with an existing uniswap trading pair (see [official docs](https://uniswap.org/docs/v2/core-concepts/pools/))
 
 2. AEA establishes which pool (ETH-token X pair) provides highest APR; say token A
 
@@ -24,11 +24,11 @@ The first AEA integrates with [Uniswap](https://uniswap.org/), that is we focus 
 The above flow is largely deterministic. There are a number of probabilistic elements which require forecasting models to be maintained:
 
 - gas estimation for tx execution; can use standard Infura API to start with
-- gas price estimation; can start with API like gas station
-- APR estimation; can start with 3rd party API, then try to estimate ourselves eventually
+- gas price estimation; can start with API like gas station (https://docs.ethgasstation.info/)
+- APR estimation; can start with 3rd party API, then try to estimate ourselves eventually (https://www.liquidityfolio.com/# or https://docs.blocklytics.org/apis/pools-api or https://info.uniswap.org/pairs)
 
 ## Alternative approaches
 
 The v1 design approach assumes no additional smart contract deployment. It is out-of-the-box ready to use with default uniswap contracts.
 
-Alternatively, one could deploy further onchain elements, like proxy contracts to optimise and safe-guard some interactions. However, this also adds complexity and cost, which makes it less user friendly. It is also a less agile approach as it requires more investment in smart contract development.
+Alternatively, one could deploy further on-chain elements, like proxy contracts to optimise and safe-guard some interactions. However, this also adds complexity and cost, which makes it less user friendly. It is also a less agile approach as it requires more investment in smart contract development.
