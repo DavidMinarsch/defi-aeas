@@ -1,17 +1,17 @@
 # defi-aeas
-A repo to explore AEA implementations for DeFi
 
+A repo to explore AEA implementations for DeFi
 
 ## Development
 
 Setup development environment:
 
-``` bash
+```bash
 make new_env
 ```
 
 Run docs server:
 
-``` bash
+```bash
 make docs
 ```
