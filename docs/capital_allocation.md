@@ -36,10 +36,12 @@ The role of this skill is to continuously allocate capital to the most profitabl
         PoolStatus : PROVISION_PENDING
         PoolStatus : PROVISION_ACTIVE
         PoolStatus : WITHDRAWAL_PENDING
-        Behaviour <|-- CapitalAllocationBehaviour
+        Behaviour <|-- FSMBehaviour
+        FSMBehaviour <|-- CapitalAllocationBehaviour
         Handler <|-- LedgerApiHandler
         Handler <|-- ContractApiHandler
         CapitalAllocationBehaviour : +int tick_interval
+        CapitalAllocationBehaviour : +Set[String] states
         CapitalAllocationBehaviour : +act()
 
 </div>

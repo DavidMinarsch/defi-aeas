@@ -19,6 +19,7 @@ nav:
       - Overview: overview.md
       - Pool APR Skill: pool_apr.md
       - Capital Allocation Skill: capital_allocation.md
+      - App-Agent Flow: app-agent-interactions.md
 
 plugins:
     - markdownmermaid
