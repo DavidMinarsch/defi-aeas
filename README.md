@@ -8,10 +8,23 @@ Setup development environment:
 
 ```bash
 make new_env
+pipenv shell
 ```
+
+## Build latest AEA:
+
+```bash
+aea fetch defi_aeas/uniswap_aea:latest
+cd uniswap_aea
+```
+
+
+## Docs
 
 Run docs server:
 
 ```bash
 make docs
 ```
+
+

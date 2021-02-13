@@ -1,0 +1,31 @@
+agent_name: uniswap_aea
+author: defi_aeas
+version: 0.1.0
+license: Apache-2.0
+description: An AEA to automate liquidity provision for Uniswap.
+aea_version: '>=0.10.0, <0.11.0'
+fingerprint: {}
+fingerprint_ignore_patterns: []
+connections:
+- fetchai/http_client:0.17.0
+- fetchai/http_server:0.16.0
+- fetchai/ledger:0.13.0
+contracts: []
+protocols:
+- fetchai/contract_api:0.11.0
+- fetchai/default:0.12.0
+- fetchai/http:0.12.0
+- fetchai/ledger_api:0.10.0
+- fetchai/signing:0.10.0
+- fetchai/state_update:0.10.0
+skills:
+- defi_aeas/capital_allocation:0.1.0
+default_connection: fetchai/http_client:0.17.0
+default_ledger: fetchai
+default_routing: {}
+connection_private_key_paths: {}
+private_key_paths: {}
+logging_config:
+  disable_existing_loggers: false
+  version: 1
+registry_path: ../packages
