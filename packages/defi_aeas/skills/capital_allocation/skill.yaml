@@ -7,28 +7,26 @@ license: Apache-2.0
 aea_version: '>=0.10.0, <0.11.0'
 fingerprint:
   __init__.py: QmeqaEK1RWCn1dWaiJtizww555tYReLsacwFF7sAtmofV3
-  behaviours.py: QmNgDDAmBzWBeBF7e5gUCny38kdqVVfpvHGaAZVZcMtm9Q
-  handlers.py: QmTHd2YX941T76eS39SSdfiafXBYehL2oibugnVmmp4Tvy
-  my_model.py: QmPaZ6G37Juk63mJj88nParaEp71XyURts8AmmX1axs24V
+  behaviours.py: QmNep8TBywVaXymJuMNRTqCLzAebhxH8xVekWqR57krbpk
+  dialogues.py: QmNe8Cs2Ciz7V22tuLfgHB2t3LdqGP8G7VnRi6u9Qhnwhp
+  handlers.py: QmcrVE8Ak8j2L3AMMt8F4Bu6j3atyq9BudsmvhMfgSMabL
 fingerprint_ignore_patterns: []
 connections: []
 contracts: []
-protocols: []
+protocols:
+- fetchai/http:0.12.0
 skills: []
 behaviours:
   scaffold:
-    args:
-      foo: bar
+    args: {}
     class_name: MyScaffoldBehaviour
 handlers:
-  scaffold:
-    args:
-      foo: bar
-    class_name: MyScaffoldHandler
+  http:
+    args: {}
+    class_name: HttpHandler
 models:
-  scaffold:
-    args:
-      foo: bar
-    class_name: MyModel
+  http_dialogues:
+    args: {}
+    class_name: HttpDialogues
 dependencies: {}
 is_abstract: false

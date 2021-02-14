@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2018-2019 Fetch.AI Limited
+#   Copyright defi-aeas
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -17,19 +17,40 @@
 #
 # ------------------------------------------------------------------------------
 
-"""This package contains a scaffold of a handler."""
+"""This module contains the handlers of the 'capital_allocation' skill."""
 
-from typing import Optional
+from typing import Any, Callable, Dict, List, Tuple, cast
+from urllib.parse import parse_qs, urlparse
 
-from aea.configurations.base import PublicId
 from aea.protocols.base import Message
 from aea.skills.base import Handler
 
+# pylint: disable=import-error,no-name-in-module
+from packages.defi_aeas.skills.capital_allocation.dialogues import (
+    HttpDialogue,
+    HttpDialogues,
+)
+from packages.fetchai.protocols.http.message import HttpMessage
 
-class MyScaffoldHandler(Handler):
-    """This class scaffolds a handler."""
 
-    SUPPORTED_PROTOCOL = None  # type: Optional[PublicId]
+# pylint: enable=import-error,no-name-in-module
+
+
+class HttpHandler(Handler):
+    """This implements the echo handler."""
+
+    SUPPORTED_PROTOCOL = HttpMessage.protocol_id
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        """Initialize handler."""
+        super().__init__(*args, **kwargs)
+        self.request_handlers: Dict[
+            Tuple[str, str],
+            Callable[[Dict[str, List[str]], bytes], Tuple[bytes, str, int]],
+        ] = {
+            ("get", "/status"): self._status,
+        }
+        self.status = "Live"  # temporary only
 
     def setup(self) -> None:
         """
@@ -37,7 +58,6 @@ class MyScaffoldHandler(Handler):
 
         :return: None
         """
-        raise NotImplementedError
 
     def handle(self, message: Message) -> None:
         """
@@ -46,7 +66,79 @@ class MyScaffoldHandler(Handler):
         :param message: the message
         :return: None
         """
-        raise NotImplementedError
+        http_msg = cast(HttpMessage, message)
+
+        # recover dialogue
+        http_dialogues = cast(HttpDialogues, self.context.http_dialogues)
+        http_dialogue = cast(HttpDialogue, http_dialogues.update(http_msg))
+        if http_dialogue is None:
+            self._handle_unidentified_dialogue(http_msg)
+            return
+
+        # handle message
+        if http_msg.performative == HttpMessage.Performative.REQUEST:
+            self._handle_request(http_msg, http_dialogue)
+        else:
+            self._handle_invalid(http_msg, http_dialogue)
+
+    def _handle_unidentified_dialogue(self, http_msg: HttpMessage) -> None:
+        """
+        Handle an unidentified dialogue.
+
+        :param http_msg: the message
+        """
+        self.context.logger.info(
+            "received invalid http message={}, unidentified dialogue.".format(http_msg)
+        )
+
+    def _handle_request(
+        self, http_msg: HttpMessage, http_dialogue: HttpDialogue
+    ) -> None:
+        """
+        Handle a Http request.
+
+        :param http_msg: the http message
+        :param http_dialogue: the http dialogue
+        :return: None
+        """
+        self.context.logger.info(
+            "received http request with method={}, url={} and body={!r}".format(
+                http_msg.method, http_msg.url, http_msg.body,
+            )
+        )
+        parsed = urlparse(http_msg.url)
+        query = parse_qs(parsed.query)
+        request_handler = self.request_handlers.get(
+            (http_msg.method, parsed.path), self._not_found
+        )
+        body, status_text, status_code = request_handler(query, http_msg.body)
+        http_response = http_dialogue.reply(
+            performative=HttpMessage.Performative.RESPONSE,
+            target_message=http_msg,
+            version=http_msg.version,
+            status_code=status_code,
+            status_text=status_text,
+            headers="Content-Type: text/html",
+            body=body,
+        )
+        self.context.logger.info("responding with: {}".format(http_response))
+        self.context.outbox.put_message(message=http_response)
+
+    def _handle_invalid(
+        self, http_msg: HttpMessage, http_dialogue: HttpDialogue
+    ) -> None:
+        """
+        Handle an invalid http message.
+
+        :param http_msg: the http message
+        :param http_dialogue: the http dialogue
+        :return: None
+        """
+        self.context.logger.warning(
+            "cannot handle http message of performative={} in dialogue={}.".format(
+                http_msg.performative, http_dialogue
+            )
+        )
 
     def teardown(self) -> None:
         """
@@ -54,4 +146,16 @@ class MyScaffoldHandler(Handler):
 
         :return: None
         """
-        raise NotImplementedError
+
+    @staticmethod
+    def _not_found(
+        _query: Dict[str, List[str]], _body: bytes
+    ) -> Tuple[bytes, str, int]:
+        """Not found response."""
+        return b"", "Resource not found", 404
+
+    def _status(
+        self, _query: Dict[str, List[str]], _body: bytes
+    ) -> Tuple[bytes, str, int]:
+        """Status response."""
+        return f"{self.status}".encode("utf-8"), "Success", 200

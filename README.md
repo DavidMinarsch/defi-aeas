@@ -16,8 +16,15 @@ pipenv shell
 ```bash
 aea fetch defi_aeas/uniswap_aea:latest
 cd uniswap_aea
+aea install
 ```
 
+Start AEA:
+```bash
+aea run
+```
+
+Navigate in browser to `localhost:8000/status`.
 
 ## Docs
 

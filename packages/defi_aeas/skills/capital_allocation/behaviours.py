@@ -31,7 +31,6 @@ class MyScaffoldBehaviour(Behaviour):
 
         :return: None
         """
-        raise NotImplementedError
 
     def act(self) -> None:
         """
@@ -39,7 +38,6 @@ class MyScaffoldBehaviour(Behaviour):
 
         :return: None
         """
-        raise NotImplementedError
 
     def teardown(self) -> None:
         """
@@ -47,4 +45,3 @@ class MyScaffoldBehaviour(Behaviour):
 
         :return: None
         """
-        raise NotImplementedError

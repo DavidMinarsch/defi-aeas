@@ -42,6 +42,14 @@ clean-test:
 docs:
 	mkdocs build --clean
 
+.PHONY: lint
+lint:
+	black packages
+	isort packages
+	flake8 packages
+	pylint packages
+	mypy packages
+
 .PHONY: new_env
 new_env: clean
 	if [ -z "$v" ];\
