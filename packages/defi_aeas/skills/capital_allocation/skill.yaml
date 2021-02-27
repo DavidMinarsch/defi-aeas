@@ -7,9 +7,14 @@ license: Apache-2.0
 aea_version: '>=0.10.0, <0.11.0'
 fingerprint:
   __init__.py: QmeqaEK1RWCn1dWaiJtizww555tYReLsacwFF7sAtmofV3
+  abstract.py: QmSa9drkYCACVxDr4pbYUeoiYmqGmZvdcBVjJH7kWd5ScX
   behaviours.py: QmNep8TBywVaXymJuMNRTqCLzAebhxH8xVekWqR57krbpk
   dialogues.py: QmNe8Cs2Ciz7V22tuLfgHB2t3LdqGP8G7VnRi6u9Qhnwhp
-  handlers.py: QmcrVE8Ak8j2L3AMMt8F4Bu6j3atyq9BudsmvhMfgSMabL
+  handlers.py: Qme8ks1LWZQMZHsQypojysZcdxuEudaAFqMQoJbr7sZNqn
+  pools.py: QmeW7xPAtxXP5ztSUh11xXAmBFbxvZCwYsDUHLB7kCHx7C
+  strategy.py: QmVVL8HA3MwTGetVMrtHbSf5DsD1eov6UEHf6vNHoBLDR5
+  tokens.py: QmYYEdFVrLdK8YDXCwomGW7mfWWFHYTnzgvW2YTFZ7j4M5
+  transactions.py: QmSc2aQAQeETh4ky2uGouHknQJ2h8L1RwAurNDZus8aJDL
 fingerprint_ignore_patterns: []
 connections: []
 contracts: []
@@ -28,5 +33,17 @@ models:
   http_dialogues:
     args: {}
     class_name: HttpDialogues
+  pools:
+    args: {}
+    class_name: Pools
+  strategy:
+    args: {}
+    class_name: Strategy
+  tokens:
+    args: {}
+    class_name: Tokens
+  transactions:
+    args: {}
+    class_name: Transactions
 dependencies: {}
 is_abstract: false

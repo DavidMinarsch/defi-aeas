@@ -47,8 +47,8 @@ lint:
 	black packages
 	isort packages
 	flake8 packages
-	pylint packages
 	mypy packages
+	pylint packages
 
 .PHONY: new_env
 new_env: clean

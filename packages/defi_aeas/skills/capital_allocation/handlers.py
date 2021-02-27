@@ -30,6 +30,9 @@ from packages.defi_aeas.skills.capital_allocation.dialogues import (
     HttpDialogue,
     HttpDialogues,
 )
+from packages.defi_aeas.skills.capital_allocation.strategy import Strategy
+from packages.defi_aeas.skills.capital_allocation.tokens import Tokens
+from packages.defi_aeas.skills.capital_allocation.transactions import Transactions
 from packages.fetchai.protocols.http.message import HttpMessage
 
 
@@ -48,9 +51,12 @@ class HttpHandler(Handler):
             Tuple[str, str],
             Callable[[Dict[str, List[str]], bytes], Tuple[bytes, str, int]],
         ] = {
-            ("get", "/status"): self._status,
+            ("get", "/agent/status"): self._get_status,
+            ("get", "/agent/name"): self._get_name,
+            ("get", "transactions"): self._get_transactions,
+            ("get", "tokens"): self._get_tokens,
+            ("get", "whitelist"): self._get_whitelist,
         }
-        self.status = "Live"  # temporary only
 
     def setup(self) -> None:
         """
@@ -154,8 +160,48 @@ class HttpHandler(Handler):
         """Not found response."""
         return b"", "Resource not found", 404
 
-    def _status(
+    def _get_status(
         self, _query: Dict[str, List[str]], _body: bytes
     ) -> Tuple[bytes, str, int]:
         """Status response."""
-        return f"{self.status}".encode("utf-8"), "Success", 200
+        return (
+            f"{cast(Strategy, self.context.strategy).agent_status}".encode("utf-8"),
+            "Success",
+            200,
+        )
+
+    def _get_name(
+        self, _query: Dict[str, List[str]], _body: bytes
+    ) -> Tuple[bytes, str, int]:
+        """Name response."""
+        return (
+            f"{self.context.agent_name}".encode("utf-8"),
+            "Success",
+            200,
+        )
+
+    def _get_transactions(
+        self, _query: Dict[str, List[str]], _body: bytes
+    ) -> Tuple[bytes, str, int]:
+        """Transactions response."""
+        transactions = cast(Transactions, self.context.transactions)
+        result = transactions.to_json().encode("utf-8")
+        return result, "Success", 200
+
+    def _get_tokens(
+        self, _query: Dict[str, List[str]], _body: bytes
+    ) -> Tuple[bytes, str, int]:
+        """Tokens response."""
+        tokens = cast(Tokens, self.context.tokens)
+        result = tokens.to_json().encode("utf-8")
+        return result, "Success", 200
+
+    def _get_whitelist(
+        self, _query: Dict[str, List[str]], _body: bytes
+    ) -> Tuple[bytes, str, int]:
+        """Tokens whitelist response."""
+        return (
+            f"{cast(Strategy, self.context.strategy).token_whitelist}".encode("utf-8"),
+            "Success",
+            200,
+        )

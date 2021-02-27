@@ -33,4 +33,4 @@ And contracts:
 
 ### Frontend
 
-Built with framework of our choice. Talks to AEA directly (using http server connection) or to its own server and server talks to AEA via connection of choice.
+Built with framework of our choice: React. Talks to AEA directly using http server connection.

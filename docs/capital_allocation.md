@@ -10,40 +10,61 @@ The role of this skill is to continuously allocate capital to the most profitabl
         CapitalAllocationSkill <|-- Behaviour
         CapitalAllocationSkill <|-- Handler
         Model <|-- Strategy
-        Model <|-- Tokens
-        Model <|-- Pools
-        Tokens : whitlisted_tokens()
-        Tokens : List[Token]
-        Strategy : List~Token~ _tokens
-        Strategy : +bool is_active
-        Strategy : +Pool active_pool
-        Strategy : +Pool next_active_pool
-        Strategy : +get_pool_with_highest_apr_forecast() : Pool
-        Strategy : +is_rebalancing_profitable(Pool, Pool)
-        Tokens .. Token
-        Strategy .. Tokens
+        Model <|-- OnChainItemCollection
+        OnChainItem <|-- Token
         Token : +String address
         Token : +String name
         Token : +String symbol
-        Pools : +List[Pool]
-        Pools .. Pool
-        Pool : +String address
-        Pool : +Tuple[Token, Token] pair
-        Pool : +PoolStatus status
         Pool .. Token
-        Pool .. PoolStatus
-        PoolStatus : NO_PROVISION
-        PoolStatus : PROVISION_PENDING
-        PoolStatus : PROVISION_ACTIVE
-        PoolStatus : WITHDRAWAL_PENDING
+        OnChainItem <|-- Pool
+        Pool : +String address
+        Pool : +Tuple[Pool, Pool] pair
+        OnChainItem <|-- Transaction
+        OnChainItem : +String onchain_id
+        OnChainItemCollection : -Dict[OnChainItemId, OnChainItem] _items
+        OnChainItemCollection : +add(OnChainItem)
+        OnChainItemCollection : +get(OnChainItemId)
+        OnChainItemCollection : +to_json()
+        OnChainItemCollection <|-- Tokens
+        OnChainItemCollection <|-- Pools
+        OnChainItemCollection <|-- Transactions
+        OnChainItemCollection .. OnChainItem
+        Tokens .. Token
+        Pools .. Pool
+        Transactions .. Transaction
         Behaviour <|-- FSMBehaviour
         FSMBehaviour <|-- CapitalAllocationBehaviour
+        Handler <|-- HttpHandler
         Handler <|-- LedgerApiHandler
         Handler <|-- ContractApiHandler
         CapitalAllocationBehaviour : +int tick_interval
         CapitalAllocationBehaviour : +Set[String] states
         CapitalAllocationBehaviour : +act()
-
+        Strategy : -List~string~ _token_whitelist
+        Strategy : -Dict[Pool,PoolStatus] _pool_statuses
+        Strategy : +AgentStatus agent_status
+        Strategy : +Pool active_pool
+        Strategy : +Pool next_active_pool
+        Strategy : +update_pool_status(Pool, PoolStatus)
+        Strategy : +add_to_whitelist(List[TokenAddress])
+        Strategy : +remove_from_whitelist(List[TokenAddress])
+        Strategy : +get_pool_with_highest_apr_forecast() : Pool
+        Strategy : +is_rebalancing_profitable(Pool, Pool) : bool
+        Strategy .. AgentStatus
+        AgentStatus : ACTIVE
+        AgentStatus : PAUSED
+        Strategy .. PoolStatus
+        PoolStatus : NO_PROVISION
+        PoolStatus : PROVISION_PENDING
+        PoolStatus : PROVISION_ACTIVE
+        PoolStatus : WITHDRAWAL_PENDING
+        PoolStatus : WITHDRAWAL_COMPLETE
+        Transaction : +Int amount
+        Transaction : +String denomination
+        Transaction : +String currency
+        Transaction : +String timestamp
+        Transaction : +String from_address
+        Transaction : +String to_address
 </div>
 
 The `act` implementation can be along the lines of the following (pseudo-)code:
