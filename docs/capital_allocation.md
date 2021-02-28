@@ -2,7 +2,7 @@
 
 (WIP)
 
-The role of this skill is to continuously allocate capital to the most profitable pool whilst ensuring overall profitability (i.e. accounting for gas costs).
+The role of this skill is to continuously allocate capital to the most profitable pool whilst ensuring overall profitability (i.e. accounting for gas and reallocation costs).
 
 <div class="mermaid" id="capital">
     classDiagram

@@ -9,10 +9,10 @@ aea_version: '>=0.10.0, <0.11.0'
 fingerprint:
   __init__.py: QmSfeMDxkrZQufNT5mvYZ8325aEYkgotWUFDwdr9fbu6Ut
   build/contract.json: QmXLjattqUvw7G9V8b41ND7rQYsQoQUgpoKhZAvQVfvGDX
-  contract.py: QmWNyZy6GcasKBjMu5PEDQoPymrq2TyQkBnzC348pC4c1C
+  contract.py: QmVaiBh18F6aWS2Cfc9rvyWxxdSCtJm9cnvJsY5oft4syP
   contracts/UniswapV2Router02.sol: QmcvCtSD8u7xDkhPUqVQnEBPUiRaXywT7GT9vZyVmEeaQh
 fingerprint_ignore_patterns: []
-class_name: ERC1155Contract
+class_name: UniswapV2Router02Contract
 contract_interface_paths:
   ethereum: build/contract.json
 dependencies: {}

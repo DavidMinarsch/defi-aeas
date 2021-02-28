@@ -1,0 +1,15 @@
+name: erc20
+author: defi_aeas
+version: 0.1.0
+type: contract
+description: The erc20 contract implements an ERC20 contract package.
+license: Apache-2.0
+aea_version: '>=0.10.0, <0.11.0'
+fingerprint:
+  build/contract.json: QmSd9KTpso4QonfgsjhHCUdAtniKrschkTVEvFaKDmJbFS
+  contract.py: QmZUQR1K1p1o8rT25ZhUPj18BMM6qVccAsTX3imkv3FLaT
+fingerprint_ignore_patterns: []
+class_name: ERC20Contract
+contract_interface_paths:
+  ethereum: build/contract.json
+dependencies: {}

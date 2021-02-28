@@ -6,20 +6,25 @@ description: The scaffold skill is a scaffold for your own skill implementation.
 license: Apache-2.0
 aea_version: '>=0.10.0, <0.11.0'
 fingerprint:
-  __init__.py: QmeqaEK1RWCn1dWaiJtizww555tYReLsacwFF7sAtmofV3
-  abstract.py: QmSa9drkYCACVxDr4pbYUeoiYmqGmZvdcBVjJH7kWd5ScX
-  behaviours.py: QmNep8TBywVaXymJuMNRTqCLzAebhxH8xVekWqR57krbpk
-  dialogues.py: QmNe8Cs2Ciz7V22tuLfgHB2t3LdqGP8G7VnRi6u9Qhnwhp
-  handlers.py: Qme8ks1LWZQMZHsQypojysZcdxuEudaAFqMQoJbr7sZNqn
-  pools.py: QmeW7xPAtxXP5ztSUh11xXAmBFbxvZCwYsDUHLB7kCHx7C
-  strategy.py: QmVVL8HA3MwTGetVMrtHbSf5DsD1eov6UEHf6vNHoBLDR5
-  tokens.py: QmYYEdFVrLdK8YDXCwomGW7mfWWFHYTnzgvW2YTFZ7j4M5
-  transactions.py: QmSc2aQAQeETh4ky2uGouHknQJ2h8L1RwAurNDZus8aJDL
+  __init__.py: QmU5nkSBXL1haY8stx24Wq3gyjtgtebf4xsKusQsAFtPMT
+  abstract.py: QmaADwVCt1LqwRF5QhbdewzGxqjTN8oHF4SbavSmkrz8rP
+  behaviours.py: QmfQewiZWzXFJCUWxuMTQFqyvpG9Tm6PVRYKWzC83GKMXN
+  dialogues.py: QmcXHKrN5vWmwmbqBQc9EFo28mugyBPx18toN2rR6C1KFS
+  handlers.py: QmV5rQZgeBUDNRo3QEo1PLu1FKQx2TbnBKXHARAWS2t6Xf
+  pools.py: QmVF2jUW86bLivTtVvprnsjfTMcTKjk9gPPfRcnJtVe8MF
+  strategy.py: QmeMmDjB15ZLkvLifdSEcziokZBW3LFVn6Zj5yn9LKQ6zh
+  tokens.py: QmRqAigpriquGwwdXfSSRgXDsPLF13548X2Rx25c9dpeEz
+  transactions.py: Qmbqo8KFmDaaa4U5a3hJSUhPcmfD9vE12MvykqLcry6ouh
 fingerprint_ignore_patterns: []
-connections: []
-contracts: []
+connections:
+- fetchai/ledger:0.13.0
+contracts:
+- defi_aeas/erc20:0.1.0
+- defi_aeas/uniswap_v2_router_02:0.1.0
 protocols:
+- fetchai/contract_api:0.11.0
 - fetchai/http:0.12.0
+- fetchai/ledger_api:0.10.0
 skills: []
 behaviours:
   capital_allocation:

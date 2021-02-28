@@ -32,10 +32,10 @@ _default_logger = logging.getLogger(
     "aea.packages.defi_aeas.contracts.uniswap_v2_router_02.contract"
 )
 
-PUBLIC_ID = PublicId.from_str("defi_aeas/uniswap_v2_router_02:0.16.0")
+PUBLIC_ID = PublicId.from_str("defi_aeas/uniswap_v2_router_02:0.1.0")
 
 
-class UniswapV2Router02(Contract):
+class UniswapV2Router02Contract(Contract):
     """The UniswapV2Router contract class which acts as a bridge between AEA framework and UniswapV2Router ABI."""
 
     contract_id = PUBLIC_ID
