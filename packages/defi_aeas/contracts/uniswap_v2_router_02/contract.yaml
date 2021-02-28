@@ -1,0 +1,18 @@
+name: uniswap_v2_router_02
+author: defi_aeas
+version: 0.1.0
+type: contract
+description: The uniswap_v2_router_02 contract implements an UniswapV2Router02 contract
+  package.
+license: Apache-2.0
+aea_version: '>=0.10.0, <0.11.0'
+fingerprint:
+  __init__.py: QmSfeMDxkrZQufNT5mvYZ8325aEYkgotWUFDwdr9fbu6Ut
+  build/contract.json: QmXLjattqUvw7G9V8b41ND7rQYsQoQUgpoKhZAvQVfvGDX
+  contract.py: QmWNyZy6GcasKBjMu5PEDQoPymrq2TyQkBnzC348pC4c1C
+  contracts/UniswapV2Router02.sol: QmcvCtSD8u7xDkhPUqVQnEBPUiRaXywT7GT9vZyVmEeaQh
+fingerprint_ignore_patterns: []
+class_name: ERC1155Contract
+contract_interface_paths:
+  ethereum: build/contract.json
+dependencies: {}

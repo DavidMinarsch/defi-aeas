@@ -22,9 +22,10 @@ protocols:
 - fetchai/http:0.12.0
 skills: []
 behaviours:
-  scaffold:
-    args: {}
-    class_name: MyScaffoldBehaviour
+  capital_allocation:
+    args:
+      tick_interval: 900
+    class_name: CapitalAllocationBehaviour
 handlers:
   http:
     args: {}

@@ -17,31 +17,4 @@
 #
 # ------------------------------------------------------------------------------
 
-"""This package contains the capital allocation behaviour."""
-
-from aea.skills.behaviours import FSMBehaviour
-
-
-class CapitalAllocationBehaviour(FSMBehaviour):
-    """This class implements the FSM behaviour for the optimal capital allocation management to pools."""
-
-    def setup(self) -> None:
-        """
-        Implement the setup.
-
-        :return: None
-        """
-
-    def act(self) -> None:
-        """
-        Implement the act.
-
-        :return: None
-        """
-
-    def teardown(self) -> None:
-        """
-        Implement the task teardown.
-
-        :return: None
-        """
+"""This module contains the support resources for the uniswap_v2_router_02 contract."""

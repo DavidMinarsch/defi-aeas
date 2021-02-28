@@ -131,3 +131,5 @@ dmypy.json
 web-app/.eslintcache
 
 *.DS_Store
+
+!packages/defi_aeas/contracts/uniswap_v2_router_02/build
